@@ -1,0 +1,17 @@
+{
+  "name": "simon-team-gallery",
+  "version": "1.0.0",
+  "description": "JS widget to take info from SIMON intranet and display prettily",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "photography",
+    "staff",
+    "team",
+    "js"
+  ],
+  "author": "Joshua Hackett",
+  "license": "ISC"
+}
