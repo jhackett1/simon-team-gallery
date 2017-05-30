@@ -1,7 +1,3 @@
-setTimeout(function(){
-
-
-
 // First, trigger the spinner while we wait
 document.getElementById('simon-team-gallery').innerHTML = '<i class="fa fa-spinner" id="spinner"></i>'
 // Open a new HTTP request
@@ -16,6 +12,13 @@ xmlhttp.onreadystatechange = function() {
         var response = JSON.parse(this.responseText);
         console.log('200: Response from uwsustaff.com recieved');
         processData(response, departments);
+    }
+    if (this.readyState == 4 && this.status !== 200) {
+        console.log('Status code: ' + this.status);
+        // Grab the container element from the DOM
+        var container = document.getElementById('simon-team-gallery');
+        // Clear away the spinner
+        container.innerHTML = '<h3 class="department">Sorry, an error occurred. Please refresh the page.</h3>';
     }
 };
 xmlhttp.open("GET", endpoint, true);
@@ -57,8 +60,6 @@ function processData(response, departments){
       return user.jh_meta.dept == departments[department][0];
     });
   }
-  // And sort the array alphabetically
-
   // Now data is processed, display it
   displayGallery(processedData);
 }
@@ -69,7 +70,6 @@ function displayGallery(processedData){
   var container = document.getElementById('simon-team-gallery');
   // Clear away the spinner
   container.innerHTML = '';
-
   for (var department in processedData) {
     // Opening markup
     container.innerHTML += `<h3 class="department">${departments[department][1]}</h3><ul class="team" id="${department}"></ul>`;
@@ -81,6 +81,7 @@ function displayGallery(processedData){
         document.getElementById(department).innerHTML += `
           <li class="member">
             <div class="img" style="background-image:url(${processedData[department][i].jh_meta.primary_picture ? processedData[department][i].jh_meta.primary_picture : processedData[department][i].jh_meta.fallback_picture})">
+            ${processedData[department][i].jh_meta.alt_picture ? '<div class="img-alt" style="background-image:url(' + processedData[department][i].jh_meta.alt_picture + ')"></div>' : ''}
               <div class="cover">
                 <div class="member-contact">
                 ${processedData[department][i].jh_meta.twitter ? '<a target="blank" href=http://twitter.com/' + processedData[department][i].jh_meta.twitter + '><i class="fa fa-twitter"></i></a>' : ''}
@@ -104,4 +105,24 @@ function displayGallery(processedData){
   console.log(processedData)
 }
 
-},1000)
+
+function scrollHandler(){
+  // Keep track of the current scroll position of the page
+  var scrollPos = window.pageYOffset;
+  // Handle icon animation transitions
+  document.querySelectorAll('.member').forEach(function(element){
+    // If the container is scrolling into view, do things
+    if ((scrollPos+(document.documentElement.clientHeight*0.75)) > (element.getBoundingClientRect().top+scrollPos)) {
+      if (element.classList != 'member visible') {
+        element.classList += ' visible';
+      }
+    }
+  });
+}
+
+scrollHandler();
+
+// Animate tiles into view
+window.addEventListener('scroll', function(event){
+  scrollHandler();
+})

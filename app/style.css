@@ -59,16 +59,23 @@
     width: calc(33% - 20px);
     margin-right: 20px;
     margin-bottom: 20px;
-    padding: 0; }
-    #simon-team-gallery ul.team li.member:hover .img {
-      background-blend-mode: luminosity; }
-      #simon-team-gallery ul.team li.member:hover .img .cover {
-        opacity: 1;
+    padding: 0;
+    opacity: 0;
+    -webkit-transition: 0.2s;
+    transition: 0.2s; }
+    #simon-team-gallery ul.team li.member.visible {
+      opacity: 1; }
+    #simon-team-gallery ul.team li.member:hover .img .img-alt {
+      opacity: 1;
+      -webkit-filter: brightness(1);
+      filter: brightness(1); }
+    #simon-team-gallery ul.team li.member:hover .img .cover {
+      opacity: 1;
+      -webkit-transform: translate3d(0px, 0px, 0px);
+      transform: translate3d(0px, 0px, 0px); }
+      #simon-team-gallery ul.team li.member:hover .img .cover .member-contact {
         -webkit-transform: translate3d(0px, 0px, 0px);
         transform: translate3d(0px, 0px, 0px); }
-        #simon-team-gallery ul.team li.member:hover .img .cover .member-contact {
-          -webkit-transform: translate3d(0px, 0px, 0px);
-          transform: translate3d(0px, 0px, 0px); }
     #simon-team-gallery ul.team li.member:nth-of-type(3n+3) {
       margin-right: 0px; }
     #simon-team-gallery ul.team li.member .img {
@@ -82,6 +89,20 @@
       -webkit-transition: 0.2s;
       transition: 0.2s;
       border-radius: 3px; }
+      #simon-team-gallery ul.team li.member .img .img-alt {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        -webkit-filter: brightness(1.5);
+        filter: brightness(1.5);
+        background-size: cover;
+        background-position: center;
+        z-index: 2;
+        -webkit-transition: 0.2s;
+        transition: 0.2s; }
       #simon-team-gallery ul.team li.member .img .cover {
         position: absolute;
         padding-bottom: 110%;
@@ -108,7 +129,8 @@
         transition: 0.2s;
         position: relative;
         -webkit-transform: translate3d(0px, 100%, 0px);
-        transform: translate3d(0px, 100%, 0px); }
+        transform: translate3d(0px, 100%, 0px);
+        z-index: 3; }
         #simon-team-gallery ul.team li.member .img .cover .member-contact {
           display: -webkit-box;
           display: -ms-flexbox;

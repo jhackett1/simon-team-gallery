@@ -55,9 +55,15 @@ $font-stack: Century Gothic, Helvetica, sans serif
       margin-right: 20px
       margin-bottom: 20px
       padding: 0
+      opacity: 0
+      transition: 0.2s
+      &.visible
+        opacity: 1
       &:hover
         .img
-          background-blend-mode: luminosity
+          .img-alt
+            opacity: 1
+            filter: brightness(1)
           .cover
             opacity: 1
             transform: translate3d(0px, 0px, 0px)
@@ -75,6 +81,18 @@ $font-stack: Century Gothic, Helvetica, sans serif
         background-repeat: no-repeat
         transition: 0.2s
         border-radius: 3px
+        .img-alt
+          position: absolute
+          top: 0
+          left: 0
+          width: 100%
+          height: 100%
+          opacity: 0
+          filter: brightness(1.5)
+          background-size: cover
+          background-position: center
+          z-index: 2
+          transition: 0.2s
         .cover
           position: absolute
           padding-bottom: 110%
@@ -91,6 +109,7 @@ $font-stack: Century Gothic, Helvetica, sans serif
           transition: 0.2s
           position: relative
           transform: translate3d(0px, 100%, 0px)
+          z-index: 3
           .member-contact
             display: flex
             flex-direction: row
